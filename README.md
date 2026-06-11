@@ -25,8 +25,8 @@ Certifique-se de ter o **Docker** instalado e configurado em sua máquina.
 ### 1. Build da Imagem
 Execute o comando abaixo para construir o container do simulador:
 
-#### ```bash
-####    docker build -t carnotsim .
+    ```bash
+    docker build -t carnotsim .
 
 ---
 
