@@ -21,6 +21,8 @@ EMISSIVIDADE = 0.85      # Epsilon para superfícies metálicas oxidadas ou pint
 K_PERLITA = 0.045        # [W/mK] (Inalterado - Correto conforme Incropera)
 K_VERMICULITA = 0.08     # [W/mK] (AJUSTADO: Conforme seu texto da Seção 11.1.2)
 K_SOLO = 0.5             # [W/mK] (AJUSTADO: Conforme referência Euronem no seu texto)
+T_SOLO = 293.15          #  20°C em Kelvin
+
 
 # ============== 4. LIMITES TERMOMECÂNICOS E CUSTOS (MESO E MACROESCALA) ==============
 # Dados para cálculo de falha de fluência (creep) e impacto no CAPEX

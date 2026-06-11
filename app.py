@@ -89,9 +89,9 @@ with st.sidebar:
         st.info("💡 Valores de 5.7 e 3.8 são padrão para superfícies rugosas ao ar livre.")
 
     with st.expander("🌍 Parâmetros Geotécnicos (Solo)", expanded=True):
-        temp_solo_c = st.slider("Temperatura do Solo (°C)", 15.0, 35.0, 25.0)
-        k_solo_real = st.slider("Condutividade Térmica do Solo (W/mK)", 0.2, 2.5, 0.5)
-        st.info(f"💡 Solo definido com k={k_solo_real} W/mK e T={temp_solo_c}°C.")
+        T_solo = st.slider("Temperatura do Solo (°C)", 15.0, 35.0, 25.0)
+        k_solo = st.slider("Condutividade Térmica do Solo (W/mK)", 0.2, 2.5, 0.5)
+        st.info(f"💡 Solo definido com k={k_solo} W/mK e T={T_solo}°C.")
 
     with st.expander("🛡️ Blindagem Térmica", expanded=True):
         esp_p = st.slider("Espessura Perlite [m]", 0.1, 3.0, 1.0)
@@ -151,13 +151,23 @@ try:
                 dt=passo_temporal,
                 esp_p=esp_p,
                 esp_v=esp_v,
-                h_conv=h_conv
+                h_conv=h_conv,
+                T_amb=T_AMBIENTE,
+                T_solo=T_solo,
+                k_solo=k_solo
             )
+
+            # Lógica de legado preservada: Tratamento dos dados para o Dashboard
+            # O 'salto' optimiza a performance da visualização sem perder a fidelidade da curva
             salto = 10 if len(res_sim_bruto) > 200 else 1
+
+            # Armazenamento no session_state para manter a persistência durante a navegação
             st.session_state['dados_mef'] = res_sim_bruto[::salto]
             st.session_state['malha_mef'] = malha_res
             st.session_state['log_residuos'] = log_conv
-            st.toast("Cálculo finalizado!", icon="✅")
+
+            # Feedback final ao utilizador
+            st.toast("Cálculo finalizado com sucesso!", icon="✅")
 
 
     if 'dados_mef' in st.session_state:

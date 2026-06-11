@@ -1,7 +1,10 @@
 import numpy as np
 from scipy.sparse.linalg import spsolve
-from dados_entrada import *
+
+from dados_entrada import TEMPO_PASSO, MAX_ITERACOES, TOLERANCIA_NEWTON
 from mef_montagem import calcula_residuos_e_jacobiana, monta_matrizes_globais
+
+
 
 class EstruturaMalha:
     """
@@ -21,12 +24,12 @@ class EstruturaMalha:
 
 def simular_difusao_termica(T_inicial, tempo_total, dt, esp_p, esp_v, h_conv, T_amb, T_solo, k_solo):
     """
-    Motor de cálculo original PRESERVADO, apenas com adição da lista de resíduos
-    para alimentar o gráfico dinâmico de convergência.
+    Motor de cálculo atualizado para incluir influência do solo.
     """
-    # Mantém sua lógica de dt original
+    # 1. Garante o uso do dt ou do valor default do legado
     passo_h = dt if dt is not None else TEMPO_PASSO
 
+    # 2. Inicialização da Malha
     M_global = EstruturaMalha(len(T_inicial))
     T_passado = np.copy(T_inicial)
     T_carga_fixa = T_inicial[0]
